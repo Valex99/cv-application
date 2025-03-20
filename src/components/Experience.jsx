@@ -1,7 +1,9 @@
-export default function Experience() {
+import AddSection from "./AddSection";
+
+export default function Experience({ children }) {
   return (
-    <div className="text-black p-5">
-      <h2 className="text-[32px] mb-[20px]">Experience</h2>
+    <div className="text-black p-5 relative">
+      <h2 className="text-[32px] mb-[20px] leading-tight">Experience</h2>
       <h1 className="text-[19px] font-bold leading-tight">
         Front-End Engineer
       </h1>
@@ -19,6 +21,9 @@ export default function Experience() {
           - Interactivity Implementation
         </li>
       </ul>
+      <AddSection top="top-5" right="right-5" />
+
+      {children}
     </div>
   );
 }
