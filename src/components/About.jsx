@@ -1,8 +1,8 @@
 export default function About() {
   return (
     <div className="text-black mt-[50px] p-5">
-      <h2>About</h2>
-      <p>
+      <h2 className="text-[32px] mb-[20px]">About</h2>
+      <p className="text-[16x] mb-[15px] mb-[15px] text-[#1F1D1D]">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
         tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
         veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea

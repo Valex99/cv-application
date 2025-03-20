@@ -5,11 +5,11 @@
 }
 
 body {
-  font-family: "Roboto", sans-serif;
+  font-family: "Montserrat", "Roboto", sans-serif;
   background-color: #f0f2f5; /* Light background to contrast with white CV */
   display: flex;
   justify-content: center;
   align-items: start;
-  height: 100vh;
   padding-top: 50px;
+  padding-bottom: 50px;
 }

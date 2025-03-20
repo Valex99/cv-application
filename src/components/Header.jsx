@@ -3,11 +3,11 @@ import { BsChatLeftDots, BsPhone, BsPinMap } from "react-icons/bs";
 
 export default function Header({ children }) {
   return (
-    <div className="relative flex items-center justify-end p-5 bg-[#0D766E] h-[250px]">
+    <div className="relative flex items-center justify-end p-5 pt-7 bg-[#0D766E]">
       {/* Profile Picture on the left side */}
       <ProfilePicture />
       {/* Text content aligned to the right */}
-      <div className="text-left text-white">
+      <div className="text-left text-white mr-7">
         <h1 className="text-[24px] font-bold leading-tight">Matej Valencic</h1>
         <h2 className="text-[16px] font-medium ">Front-End Engineer</h2>
 
