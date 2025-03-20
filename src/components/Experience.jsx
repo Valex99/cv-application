@@ -2,7 +2,7 @@ import AddSection from "./AddSection";
 
 export default function Experience({ children }) {
   return (
-    <div className="text-black p-5 relative">
+    <div className="group text-black p-5 relative">
       <h2 className="text-[32px] mb-[20px] leading-tight">Experience</h2>
       <h1 className="text-[19px] font-bold leading-tight">
         Front-End Engineer
