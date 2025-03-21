@@ -1,11 +1,11 @@
 import { useState } from "react";
 
-export default function EditHeaderForm({ onClose }) {
-  const [name, setName] = useState("Matej Valencic");
-  const [title, setTitle] = useState("Front-End Engineer");
-  const [email, setEmail] = useState("mval.fx@gmail.com");
-  const [phone, setPhone] = useState("+38670710818");
-  const [location, setLocation] = useState("Postojna, Slovenia");
+export default function EditHeaderForm({ userInfo, setUserInfo, onClose }) {
+  //const [name, setName] = useState("Matej Valencic");
+  // const [title, setTitle] = useState("Front-End Engineer");
+  // const [email, setEmail] = useState("mval.fx@gmail.com");
+  // const [phone, setPhone] = useState("+38670710818");
+  // const [location, setLocation] = useState("Postojna, Slovenia");
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -26,8 +26,13 @@ export default function EditHeaderForm({ onClose }) {
               id="name"
               type="text"
               className="w-full p-2 border border-gray-300 rounded"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              value={userInfo.name}
+              onChange={(e) =>
+                setUserInfo((prevUserInfo) => ({
+                  ...prevUserInfo,
+                  name: e.target.value,
+                }))
+              }
             />
           </div>
           <div className="mb-4">
@@ -38,8 +43,13 @@ export default function EditHeaderForm({ onClose }) {
               id="title"
               type="text"
               className="w-full p-2 border border-gray-300 rounded"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
+              value={userInfo.title}
+              onChange={(e) =>
+                setUserInfo((prevUserInfo) => ({
+                  ...prevUserInfo,
+                  title: e.target.value,
+                }))
+              }
             />
           </div>
           <div className="mb-4">
@@ -50,8 +60,13 @@ export default function EditHeaderForm({ onClose }) {
               id="email"
               type="email"
               className="w-full p-2 border border-gray-300 rounded"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={userInfo.email}
+              onChange={(e) =>
+                setUserInfo((prevUserInfo) => ({
+                  ...prevUserInfo,
+                  email: e.target.value,
+                }))
+              }
             />
           </div>
           <div className="mb-4">
@@ -62,8 +77,13 @@ export default function EditHeaderForm({ onClose }) {
               id="phone"
               type="tel"
               className="w-full p-2 border border-gray-300 rounded"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
+              value={userInfo.phone}
+              onChange={(e) =>
+                setUserInfo((prevUserInfo) => ({
+                  ...prevUserInfo,
+                  phone: e.target.value,
+                }))
+              }
             />
           </div>
           <div className="mb-4">
@@ -74,8 +94,13 @@ export default function EditHeaderForm({ onClose }) {
               id="location"
               type="text"
               className="w-full p-2 border border-gray-300 rounded"
-              value={location}
-              onChange={(e) => setLocation(e.target.value)}
+              value={userInfo.location}
+              onChange={(e) =>
+                setUserInfo((prevUserInfo) => ({
+                  ...prevUserInfo,
+                  location: e.target.value,
+                }))
+              }
             />
           </div>
           <div className="flex justify-between">
@@ -86,7 +111,10 @@ export default function EditHeaderForm({ onClose }) {
             >
               Cancel
             </button>
-            <button type="submit" className="bg-[#0D766E] text-white p-2 rounded">
+            <button
+              type="submit"
+              className="bg-[#0D766E] text-white p-2 rounded"
+            >
               Save
             </button>
           </div>
