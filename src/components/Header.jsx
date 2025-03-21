@@ -40,22 +40,22 @@ export default function Header({ children }) {
       <EditSection top="top-4" right="right-5" onClick={toggleForm} />
 
       {/* Text content aligned to the right */}
-      <div className="text-left text-white mr-12">
+      <div className="text-left text-white mr-14">
         <h1 className="text-[24px] font-bold leading-tight">{userInfo.name}</h1>
         <h2 className="text-[16px] font-medium ">{userInfo.title}</h2>
 
         <p className="text-sm mt-[15px] mb-[15px]">
-          <BsChatLeftDots className="inline-block mr-2 text-lg" />
+          <BsChatLeftDots className="inline-block mr-2 text-xl" />
           {userInfo.email}
         </p>
 
         <p className="text-sm mt-[15px] mb-[15px]">
-          <BsPhone className="inline-block mr-2 text-lg" />
+          <BsPhone className="inline-block mr-2 text-xl" />
           {userInfo.phone}
         </p>
 
         <p className="text-sm mt-[15px] mb-[15px]">
-          <BsPinMap className="inline-block mr-2 text-lg" />
+          <BsPinMap className="inline-block mr-2 text-xl" />
           {userInfo.location}
         </p>
       </div>

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { BsX } from "react-icons/bs";
 
 export default function EditAboutForm({
   aboutDescription,
@@ -15,9 +16,25 @@ export default function EditAboutForm({
   };
 
   return (
-    <div className="fixed inset-0 flex justify-center items-center z-50 bg-gray-700/40 backdrop-blur-sm z-10">
-      <div className="bg-white p-8 rounded-lg w-[500px]">
-        <h2 className="text-2xl font-bold mb-4">About</h2>
+    <div
+      className="fixed inset-0 flex justify-center items-center z-50 bg-gray-700/40 backdrop-blur-sm z-10"
+      onClick={onClose}
+    >
+      <div
+        className="bg-white p-8 rounded-lg w-[500px]"
+        onClick={(e) => e.stopPropagation()}
+      >
+       <div className="flex justify-between items-center mb-4">
+          <h2 className="text-2xl font-bold">Edit Profile</h2>
+          {/* Close Button (X) */}
+          <div
+            onClick={onClose}
+            className="w-10 h-10 rounded-full flex justify-center items-center bg-white hover:bg-gray-300 active:bg-gray-400 text-white cursor-pointer"
+          >
+            <BsX className="text-black h-8 w-8" />
+          </div>
+        </div>
+
         {/* Form already has onSubmit venet handler set, and save button is of type "submit" */}
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
@@ -33,15 +50,8 @@ export default function EditAboutForm({
           </div>
           <div className="flex justify-between">
             <button
-              type="button"
-              className="bg-gray-400 text-white p-2 rounded cursor-pointer w-[70px]"
-              onClick={onClose}
-            >
-              Cancel
-            </button>
-            <button
               type="submit"
-              className="bg-[#0D766E] text-white p-2 rounded cursor-pointer w-[70px]"
+              className="bg-[#0D766E] text-white p-2 rounded cursor-pointer w-[100%] hover:bg-[#0A5F5A] active:bg-[#094F4C]"
             >
               Save
             </button>

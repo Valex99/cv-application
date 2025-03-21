@@ -44,7 +44,7 @@ export default function EditHeaderForm({ userInfo, setUserInfo, onClose }) {
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-2xl font-bold">About</h2>
+          <h2 className="text-2xl font-bold">Edit Profile</h2>
           {/* Close Button (X) */}
           <div
             onClick={onClose}
