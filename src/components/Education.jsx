@@ -1,4 +1,4 @@
-import AddSection from "./AddSection";
+import AddSection from "../edit-add-icons/AddSection";
 
 export default function Education({ children }) {
   return (

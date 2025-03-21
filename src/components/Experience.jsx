@@ -1,29 +1,41 @@
-import AddSection from "./AddSection";
+import { useState } from "react";
+
+import AddSection from "../edit-add-icons/AddSection";
+import Work from "./Work";
+import AddExperienceForm from "../forms/AddExperience";
+
+// On click of the plus icon, a new form should appear
 
 export default function Experience({ children }) {
+  const [experienceForm, setExperienceForm] = useState(false);
+
+  const toggleExperienceForm = () => {
+    setExperienceForm(!experienceForm);
+  };
+
+  const workDetails = {
+    title: "Web Developer",
+    employeer: "Microsoft",
+    startDate: "17.9.2020",
+    endDate: "19.1.2024",
+    responsibilities: [
+      "Interactivity Implementation",
+      "Web and Mobile UI/UX Design",
+      "Team Collaboration and Organization",
+    ],
+  };
+
   return (
     <div className="group text-black p-5 relative">
       <h2 className="text-[32px] mb-[20px] leading-tight">Experience</h2>
-      <h1 className="text-[19px] font-bold leading-tight">
-        Front-End Engineer
-      </h1>
-      <p className="text-[16px]">Google</p>
-      <p className="text-[12px] text-[#696161]">Aug 2022 - Present</p>
+      <AddSection top="top-3" right="right-5" onClick={toggleExperienceForm} />
 
-      <ul className="text-[#1F1D1D]">
-        <li className="text-[14.5px] mt-[5px] mb-[5px]">
-          - Interactivity Implementation
-        </li>
-        <li className="text-[14.5px] mt-[5px] mb-[5px]">
-          - Interactivity Implementation
-        </li>
-        <li className="text-[14.5px] mt-[5px] mb-[5px]">
-          - Interactivity Implementation
-        </li>
-      </ul>
-      <AddSection top="top-5" right="right-5" />
+      <Work workDetails={workDetails} children={children} />
 
       {children}
+      {experienceForm && <AddExperienceForm 
+        onClose={toggleExperienceForm}
+      />}
     </div>
   );
 }
