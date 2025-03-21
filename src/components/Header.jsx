@@ -4,6 +4,8 @@ import { BsChatLeftDots, BsPhone, BsPinMap } from "react-icons/bs";
 import ProfilePicture from "./ProfilePicture";
 import EditSection from "./EditSection";
 import EdtHeaderForm from "./EditHeaderForm";
+import gustavoPic from "../images/gustavo.jpg";
+
 
 export default function Header({ children }) {
   {
@@ -22,6 +24,7 @@ export default function Header({ children }) {
     email: "mval.fx@gmail.com",
     phone: "+38670710818",
     location: "Postojna, Slovenia",
+    photo: gustavoPic,
   });
 
   const toggleForm = () => {
@@ -31,7 +34,7 @@ export default function Header({ children }) {
   return (
     <div className="group relative flex items-center justify-end p-5 pt-7 bg-[#0D766E]">
       {/* Profile Picture on the left side */}
-      <ProfilePicture />
+      <ProfilePicture photoSrc={userInfo.photo}/>
 
       {/* Edit Section Icon - Add event listener so on click a function is triggered */}
       <EditSection top="top-4" right="right-5" onClick={toggleForm} />

@@ -3,12 +3,30 @@ import { useState } from "react";
 export default function EditHeaderForm({ userInfo, setUserInfo, onClose }) {
   // Temporary state - updated onChange
   const [formValues, setFormValues] = useState(userInfo);
+  const [imagePreview, setImagePreview] = useState(userInfo.photo || ""); // To show the preview of the selected image
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setUserInfo(formValues);
     onClose(); // Close the form after submitting
   };
+
+  //
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        setImagePreview(reader.result);
+        setFormValues((prevUserInfo) => ({
+          ...prevUserInfo,
+          photo: reader.result,
+        }));
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+  //
 
   // Rather than on change, the data should change on submit
   // On change, only input window should update
@@ -106,6 +124,32 @@ export default function EditHeaderForm({ userInfo, setUserInfo, onClose }) {
               }
             />
           </div>
+
+          {/* Image Upload Section */}
+          <div className="mb-4">
+            <label className="block mb-1" htmlFor="photo">
+              Profile Photo
+            </label>
+            {imagePreview ? (
+              <img
+                src={imagePreview}
+                alt="Profile Preview"
+                className="w-24 h-24 rounded-full mx-auto mb-2 object-cover border"
+              />
+            ) : (
+              <div className="w-24 h-24 mx-auto mb-2 rounded-full bg-gray-200 flex items-center justify-center">
+                <span className="text-gray-500">No Image</span>
+              </div>
+            )}
+            <input
+              id="photo"
+              type="file"
+              accept="image/*"
+              onChange={handleImageChange}
+              className="block mx-auto text-sm"
+            />
+          </div>
+
           <div className="flex justify-between">
             <button
               type="button"
