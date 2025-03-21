@@ -24,7 +24,7 @@ export default function Header({ children }) {
     email: "mval.fx@gmail.com",
     phone: "+38670710818",
     location: "Postojna, Slovenia",
-    photo: gustavoPic,
+    photo: gustavoPic, // Initial photo
   });
 
   const toggleForm = () => {

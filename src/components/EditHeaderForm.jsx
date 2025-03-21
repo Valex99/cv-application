@@ -127,40 +127,53 @@ export default function EditHeaderForm({ userInfo, setUserInfo, onClose }) {
 
           {/* Image Upload Section */}
           <div className="mb-4">
-            <label className="block mb-1" htmlFor="photo">
+            <label className="block mb-2" htmlFor="photo">
               Profile Photo
             </label>
+
+            {/* Image Preview or Placeholder */}
             {imagePreview ? (
               <img
                 src={imagePreview}
                 alt="Profile Preview"
-                className="w-24 h-24 rounded-full mx-auto mb-2 object-cover border"
+                className="w-24 h-24 rounded-full mx-auto mb-2 object-cover border-2 border-gray-300 shadow-sm"
               />
             ) : (
-              <div className="w-24 h-24 mx-auto mb-2 rounded-full bg-gray-200 flex items-center justify-center">
-                <span className="text-gray-500">No Image</span>
+              <div className="w-24 h-24 mx-auto mb-2 rounded-full bg-gray-200 flex items-center justify-center shadow-sm">
+                <span className="text-gray-500 text-xs">No Image</span>
               </div>
             )}
-            <input
-              id="photo"
-              type="file"
-              accept="image/*"
-              onChange={handleImageChange}
-              className="block mx-auto text-sm"
-            />
+
+            {/* File Input Section */}
+            <div className="flex items-center justify-start mt-2">
+              {/* Choose File Button */}
+              <input
+                id="photo"
+                type="file"
+                accept="image/*"
+                onChange={handleImageChange}
+                className="block text-sm text-gray-700 file:py-2 file:px-4 file:border-0 file:text-sm file:font-semibold file:bg-[#0D766E] file:text-white file:rounded-lg hover:file:bg-[#0D766E]/90 focus:outline-none focus:ring-2 focus:ring-[#0D766E] focus:ring-opacity-50 cursor-pointer"
+              />
+              {/* File Name Text */}
+              {!imagePreview && (
+                <span className="ml-2 text-sm text-gray-500">
+                  No File Chosen
+                </span>
+              )}
+            </div>
           </div>
 
           <div className="flex justify-between">
             <button
               type="button"
-              className="bg-gray-400 text-white p-2 rounded cursor-pointer"
+              className="bg-gray-400 text-white p-2 rounded cursor-pointer w-[70px]"
               onClick={onClose}
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="bg-[#0D766E] text-white p-2 rounded cursor-pointer"
+              className="bg-[#0D766E] text-white p-2 rounded cursor-pointer w-[70px]"
             >
               Save
             </button>
