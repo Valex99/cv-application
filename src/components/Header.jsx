@@ -3,7 +3,6 @@ import { useState } from "react";
 import { BsChatLeftDots, BsPhone, BsPinMap } from "react-icons/bs";
 import ProfilePicture from "./ProfilePicture";
 import EditSection from "./EditSection";
-
 import EdtHeaderForm from "./EditHeaderForm";
 
 export default function Header({ children }) {

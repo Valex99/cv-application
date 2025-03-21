@@ -1,22 +1,25 @@
 import { useState } from "react";
 
 export default function EditHeaderForm({ userInfo, setUserInfo, onClose }) {
-  //const [name, setName] = useState("Matej Valencic");
-  // const [title, setTitle] = useState("Front-End Engineer");
-  // const [email, setEmail] = useState("mval.fx@gmail.com");
-  // const [phone, setPhone] = useState("+38670710818");
-  // const [location, setLocation] = useState("Postojna, Slovenia");
+  // Temporary state - updated onChange
+  const [formValues, setFormValues] = useState(userInfo);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Form Submitted", { name, title, email, phone, location });
+    setUserInfo(formValues);
     onClose(); // Close the form after submitting
   };
+
+  // Rather than on change, the data should change on submit
+  // On change, only input window should update
+  // But form text should change only if the user clicks save
+  // If now save is clicked -> form values holds the latest state
 
   return (
     <div className="fixed inset-0 flex justify-center items-center z-50 bg-gray-700/40 backdrop-blur-sm z-10">
       <div className="bg-white p-8 rounded-lg w-[400px]">
         <h2 className="text-2xl font-bold mb-4">Edit Profile</h2>
+        {/* Form already has onSubmit venet handler set, and save button is of type "submit" */}
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label className="block mb-1" htmlFor="name">
@@ -26,9 +29,9 @@ export default function EditHeaderForm({ userInfo, setUserInfo, onClose }) {
               id="name"
               type="text"
               className="w-full p-2 border border-gray-300 rounded"
-              value={userInfo.name}
+              value={formValues.name}
               onChange={(e) =>
-                setUserInfo((prevUserInfo) => ({
+                setFormValues((prevUserInfo) => ({
                   ...prevUserInfo,
                   name: e.target.value,
                 }))
@@ -43,9 +46,9 @@ export default function EditHeaderForm({ userInfo, setUserInfo, onClose }) {
               id="title"
               type="text"
               className="w-full p-2 border border-gray-300 rounded"
-              value={userInfo.title}
+              value={formValues.title}
               onChange={(e) =>
-                setUserInfo((prevUserInfo) => ({
+                setFormValues((prevUserInfo) => ({
                   ...prevUserInfo,
                   title: e.target.value,
                 }))
@@ -60,9 +63,9 @@ export default function EditHeaderForm({ userInfo, setUserInfo, onClose }) {
               id="email"
               type="email"
               className="w-full p-2 border border-gray-300 rounded"
-              value={userInfo.email}
+              value={formValues.email}
               onChange={(e) =>
-                setUserInfo((prevUserInfo) => ({
+                setFormValues((prevUserInfo) => ({
                   ...prevUserInfo,
                   email: e.target.value,
                 }))
@@ -77,9 +80,9 @@ export default function EditHeaderForm({ userInfo, setUserInfo, onClose }) {
               id="phone"
               type="tel"
               className="w-full p-2 border border-gray-300 rounded"
-              value={userInfo.phone}
+              value={formValues.phone}
               onChange={(e) =>
-                setUserInfo((prevUserInfo) => ({
+                setFormValues((prevUserInfo) => ({
                   ...prevUserInfo,
                   phone: e.target.value,
                 }))
@@ -94,9 +97,9 @@ export default function EditHeaderForm({ userInfo, setUserInfo, onClose }) {
               id="location"
               type="text"
               className="w-full p-2 border border-gray-300 rounded"
-              value={userInfo.location}
+              value={formValues.location}
               onChange={(e) =>
-                setUserInfo((prevUserInfo) => ({
+                setFormValues((prevUserInfo) => ({
                   ...prevUserInfo,
                   location: e.target.value,
                 }))
@@ -106,14 +109,14 @@ export default function EditHeaderForm({ userInfo, setUserInfo, onClose }) {
           <div className="flex justify-between">
             <button
               type="button"
-              className="bg-gray-400 text-white p-2 rounded"
+              className="bg-gray-400 text-white p-2 rounded cursor-pointer"
               onClick={onClose}
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="bg-[#0D766E] text-white p-2 rounded"
+              className="bg-[#0D766E] text-white p-2 rounded cursor-pointer"
             >
               Save
             </button>
