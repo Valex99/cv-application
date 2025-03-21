@@ -1,20 +1,35 @@
+import { useState } from "react";
 import EditSection from "./EditSection";
+import EditAboutForm from "./EditAboutForm";
 
 export default function About({ children }) {
+  const [aboutForm, setAboutForm] = useState(false);
+
+  const [aboutDescription, setAboutDescription] = useState(
+    "I'm a passionate front-end developer with a knack for bringing beautiful and functional web experiences to life. Combining my technical expertise with an eye for design, I weave code into interactive tapestries that captivate users and drive results."
+  );
+
+  const toggleAboutForm = () => {
+    setAboutForm(!aboutForm);
+  };
+
   return (
     <div className="group relative text-black mt-[50px] p-5">
       <h2 className="text-[32px] mb-[20px] mt-[15px] leading-tight">About</h2>
-      <p className="text-[16x] mb-[15px] mb-[15px] text-[#1F1D1D] pr-[60px]">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-        velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-        occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-        mollit anim id est laborum.
+      <p className="text-[16x] mb-[15px] mb-[15px] text-[#1F1D1D] pr-[60px] max-w-[90%] break-words">
+        {aboutDescription}
       </p>
-      <EditSection top="top-7" right="right-5" />
-      { children }
+      <EditSection top="top-7" right="right-5" onClick={toggleAboutForm} />
+      {children}
+
+      {/* Pass down aboutDescription state and state setter function + event listener */}
+      {aboutForm && (
+        <EditAboutForm
+          aboutDescription={aboutDescription}
+          setAboutDescription={setAboutDescription}
+          onClose={toggleAboutForm}
+        />
+      )}
     </div>
   );
 }

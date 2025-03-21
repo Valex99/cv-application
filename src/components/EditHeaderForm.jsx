@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { BsX } from "react-icons/bs";
 
 export default function EditHeaderForm({ userInfo, setUserInfo, onClose }) {
   // Temporary state - updated onChange
@@ -34,9 +35,24 @@ export default function EditHeaderForm({ userInfo, setUserInfo, onClose }) {
   // If now save is clicked -> form values holds the latest state
 
   return (
-    <div className="fixed inset-0 flex justify-center items-center z-50 bg-gray-700/40 backdrop-blur-sm z-10">
-      <div className="bg-white p-8 rounded-lg w-[400px]">
-        <h2 className="text-2xl font-bold mb-4">Edit Profile</h2>
+    <div
+      className="fixed inset-0 flex justify-center items-center z-50 bg-gray-700/40 backdrop-blur-sm z-10"
+      onClick={onClose}
+    >
+      <div
+        className="bg-white p-8 rounded-lg w-[400px]"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-2xl font-bold">About</h2>
+          {/* Close Button (X) */}
+          <div
+            onClick={onClose}
+            className="w-10 h-10 rounded-full flex justify-center items-center bg-white hover:bg-gray-300 active:bg-gray-400 text-white cursor-pointer"
+          >
+            <BsX className="text-black h-8 w-8" />
+          </div>
+        </div>
         {/* Form already has onSubmit venet handler set, and save button is of type "submit" */}
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
@@ -152,7 +168,7 @@ export default function EditHeaderForm({ userInfo, setUserInfo, onClose }) {
                 type="file"
                 accept="image/*"
                 onChange={handleImageChange}
-                className="block text-sm text-gray-700 file:py-2 file:px-4 file:border-0 file:text-sm file:font-semibold file:bg-[#0D766E] file:text-white file:rounded-lg hover:file:bg-[#0D766E]/90 focus:outline-none focus:ring-2 focus:ring-[#0D766E] focus:ring-opacity-50 cursor-pointer"
+                className="file:bg-gray-400 hover:file:bg-gray-500 block text-sm text-gray-700 file:py-2 file:px-4 file:border-0 file:text-sm file:font-semibold file:text-white file:rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0D766E] focus:ring-opacity-50 cursor-pointer"
               />
               {/* File Name Text */}
               {!imagePreview && (
@@ -165,15 +181,8 @@ export default function EditHeaderForm({ userInfo, setUserInfo, onClose }) {
 
           <div className="flex justify-between">
             <button
-              type="button"
-              className="bg-gray-400 text-white p-2 rounded cursor-pointer w-[70px]"
-              onClick={onClose}
-            >
-              Cancel
-            </button>
-            <button
               type="submit"
-              className="bg-[#0D766E] text-white p-2 rounded cursor-pointer w-[70px]"
+              className="bg-[#0D766E] text-white p-2 rounded cursor-pointer w-[100%] hover:bg-[#0A5F5A] active:bg-[#094F4C]"
             >
               Save
             </button>
