@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { BsX } from "react-icons/bs";
+import SaveButton from "../form-components/SaveButton";
+import TextArea from "../form-components/TextAreaInput";
 
 export default function EditAboutForm({
   aboutDescription,
@@ -24,7 +26,7 @@ export default function EditAboutForm({
         className="bg-white p-8 rounded-lg w-[500px]"
         onClick={(e) => e.stopPropagation()}
       >
-       <div className="flex justify-between items-center mb-4">
+        <div className="flex justify-between items-center mb-4">
           <h2 className="text-2xl font-bold">Edit Profile</h2>
           {/* Close Button (X) */}
           <div
@@ -35,27 +37,17 @@ export default function EditAboutForm({
           </div>
         </div>
 
-        {/* Form already has onSubmit venet handler set, and save button is of type "submit" */}
+        {/* Form already has onSubmit evenet handler set, and save button is of type "submit" */}
         <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label className="block mb-1" htmlFor="description">
-              Description
-            </label>
-            <textarea
-              id="description"
-              className="w-full p-2 border border-gray-300 rounded min-h-[300px]"
-              value={textareaValue}
-              onChange={(e) => setTextareaValue(e.target.value)}
-            />
-          </div>
-          <div className="flex justify-between">
-            <button
-              type="submit"
-              className="bg-[#0D766E] text-white p-2 rounded cursor-pointer w-[100%] hover:bg-[#0A5F5A] active:bg-[#094F4C]"
-            >
-              Save
-            </button>
-          </div>
+          <TextArea
+            id="description"
+            label="Description"
+            value={textareaValue}
+            height="300"
+            onChange={(e) => setTextareaValue(e.target.value)}
+          />
+
+          <SaveButton />
         </form>
       </div>
     </div>

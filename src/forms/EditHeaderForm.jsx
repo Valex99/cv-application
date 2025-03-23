@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { BsX } from "react-icons/bs";
 
+import TextInput from "../form-components/TextInput";
+import SaveButton from "../form-components/SaveButton";
+
 export default function EditHeaderForm({ userInfo, setUserInfo, onClose }) {
   // Temporary state - updated onChange
   const [formValues, setFormValues] = useState(userInfo);
@@ -55,91 +58,65 @@ export default function EditHeaderForm({ userInfo, setUserInfo, onClose }) {
         </div>
         {/* Form already has onSubmit venet handler set, and save button is of type "submit" */}
         <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label className="block mb-1" htmlFor="name">
-              Name
-            </label>
-            <input
-              id="name"
-              type="text"
-              className="w-full p-2 border border-gray-300 rounded"
-              value={formValues.name}
-              onChange={(e) =>
-                setFormValues((prevUserInfo) => ({
-                  ...prevUserInfo,
-                  name: e.target.value,
-                }))
-              }
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block mb-1" htmlFor="title">
-              Job Title
-            </label>
-            <input
-              id="title"
-              type="text"
-              className="w-full p-2 border border-gray-300 rounded"
-              value={formValues.title}
-              onChange={(e) =>
-                setFormValues((prevUserInfo) => ({
-                  ...prevUserInfo,
-                  title: e.target.value,
-                }))
-              }
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block mb-1" htmlFor="email">
-              Email
-            </label>
-            <input
-              id="email"
-              type="email"
-              className="w-full p-2 border border-gray-300 rounded"
-              value={formValues.email}
-              onChange={(e) =>
-                setFormValues((prevUserInfo) => ({
-                  ...prevUserInfo,
-                  email: e.target.value,
-                }))
-              }
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block mb-1" htmlFor="phone">
-              Phone
-            </label>
-            <input
-              id="phone"
-              type="tel"
-              className="w-full p-2 border border-gray-300 rounded"
-              value={formValues.phone}
-              onChange={(e) =>
-                setFormValues((prevUserInfo) => ({
-                  ...prevUserInfo,
-                  phone: e.target.value,
-                }))
-              }
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block mb-1" htmlFor="location">
-              Location
-            </label>
-            <input
-              id="location"
-              type="text"
-              className="w-full p-2 border border-gray-300 rounded"
-              value={formValues.location}
-              onChange={(e) =>
-                setFormValues((prevUserInfo) => ({
-                  ...prevUserInfo,
-                  location: e.target.value,
-                }))
-              }
-            />
-          </div>
+          <TextInput
+            id="name"
+            label="Name"
+            value={formValues.name}
+            onChange={(e) =>
+              setFormValues((prev) => ({
+                ...prev,
+                name: e.target.value,
+              }))
+            }
+          />
+
+          <TextInput
+            id="title"
+            label="Job Title"
+            value={formValues.title}
+            onChange={(e) =>
+              setFormValues((prev) => ({
+                ...prev,
+                title: e.target.value,
+              }))
+            }
+          />
+
+          <TextInput
+            id="email"
+            label="Email"
+            value={formValues.email}
+            onChange={(e) =>
+              setFormValues((prev) => ({
+                ...prev,
+                email: e.target.value,
+              }))
+            }
+          />
+
+          <TextInput
+            id="phone"
+            label="Phone"
+            value={formValues.phone}
+            onChange={(e) =>
+              setFormValues((prev) => ({
+                ...prev,
+                phone: e.target.value,
+              }))
+            }
+          />
+
+          <TextInput
+            id="location"
+            label="Location"
+            value={formValues.location}
+            onChange={(e) =>
+              setFormValues((prev) => ({
+                ...prev,
+                location: e.target.value,
+              }))
+            }
+          />
 
           {/* Image Upload Section */}
           <div className="mb-4">
@@ -179,14 +156,7 @@ export default function EditHeaderForm({ userInfo, setUserInfo, onClose }) {
             </div>
           </div>
 
-          <div className="flex justify-between">
-            <button
-              type="submit"
-              className="bg-[#0D766E] text-white p-2 rounded cursor-pointer w-[100%] hover:bg-[#0A5F5A] active:bg-[#094F4C]"
-            >
-              Save
-            </button>
-          </div>
+          <SaveButton />
         </form>
       </div>
     </div>
