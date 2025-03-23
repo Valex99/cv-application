@@ -6,7 +6,9 @@ export default function TextArea({ id, label, value, height, onChange }) {
       </label>
       <textarea
         id={id}
-        className={`w-full p-2 border border-gray-300 rounded min-h-[${height}px]`}
+        // Innstead of: className={`min-h-[${height}px]`} use: style={{ minHeight: `${height}px` }}
+        className={`w-full p-2 border border-gray-300 rounded`}
+        style={{ minHeight: `${height}px` }}
         value={value}
         onChange={onChange}
       />
