@@ -2,32 +2,9 @@ import { useState } from "react";
 import { BsX } from "react-icons/bs";
 
 import TextInput from "../form-components/TextInput";
-import TextArea from "../form-components/TextAreaInput";
 import SaveButton from "../form-components/SaveButton";
 
-export default function AddExperienceForm({
-  allExperienceArray,
-  setAllExperienceArray,
-  onClose,
-}) {
-  const jobDetails = {
-    title: "",
-    employeer: "",
-    startDate: { month: "", year: "" },
-    endDate: { month: "", year: "" },
-    responsibilities: "",
-  };
-
-  //const [experience, setExperience] = useState(workDetails);
-  const [temporary, setTemporary] = useState(jobDetails);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Add new experience into experience array
-    setAllExperienceArray((prevExperence) => [...prevExperence, temporary]);
-    console.log(allExperienceArray);
-    onClose();
-  };
+export default function AddEducationForm({ onClose }) {
 
   return (
     <div
@@ -49,12 +26,13 @@ export default function AddExperienceForm({
           </div>
         </div>
         <form onSubmit={handleSubmit}>
+          {/* ADD INPUT FIELDS */}
           <TextInput
             id="title"
-            label="Job Title"
+            label="Education Title"
             value={null}
             onChange={(e) =>
-              setTemporary((prev) => ({
+              setSchool((prev) => ({
                 ...prev,
                 title: e.target.value,
               }))
@@ -62,26 +40,13 @@ export default function AddExperienceForm({
           />
 
           <TextInput
-            id="employeer"
-            label="Employeer"
+            id="issuer"
+            label="Issuer"
             value={null}
             onChange={(e) =>
-              setTemporary((prev) => ({
+              setSchool((prev) => ({
                 ...prev,
-                employeer: e.target.value,
-              }))
-            }
-          />
-
-          <TextArea
-            id="responsibilities"
-            label="Description"
-            value={null}
-            height="100"
-            onChange={(e) =>
-              setTemporary((prev) => ({
-                ...prev,
-                responsibilities: e.target.value,
+                issuer: e.target.value,
               }))
             }
           />
@@ -93,10 +58,10 @@ export default function AddExperienceForm({
               {/* Month Selector */}
               <select
                 className="w-full p-2 border border-gray-300 rounded"
-                value={temporary.startDate?.month || ""}
+                value={school.startDate?.month || ""}
                 onChange={(e) =>
                   // To update Nested Properties (object inside object)
-                  setTemporary((prev) => ({
+                  setSchool((prev) => ({
                     ...prev,
                     startDate: { ...prev.startDate, month: e.target.value },
                   }))
@@ -130,9 +95,9 @@ export default function AddExperienceForm({
                 min="1950"
                 max="2100"
                 step="1"
-                value={temporary.startDate?.year || ""}
+                value={school.startDate?.year || ""}
                 onChange={(e) =>
-                  setTemporary((prev) => ({
+                  setSchool((prev) => ({
                     ...prev,
                     startDate: { ...prev.startDate, year: e.target.value },
                   }))
@@ -147,9 +112,9 @@ export default function AddExperienceForm({
               {/* Month Selector */}
               <select
                 className="w-full p-2 border border-gray-300 rounded"
-                value={temporary.endDate?.month || ""}
+                value={school.endDate?.month || ""}
                 onChange={(e) =>
-                  setTemporary((prev) => ({
+                  setSchool((prev) => ({
                     ...prev,
                     endDate: { ...prev.endDate, month: e.target.value },
                   }))
@@ -183,9 +148,9 @@ export default function AddExperienceForm({
                 min="1950"
                 max="2100"
                 step="1"
-                value={temporary.endDate?.year || ""}
+                value={school.endDate?.year || ""}
                 onChange={(e) =>
-                  setTemporary((prev) => ({
+                  setSchool((prev) => ({
                     ...prev,
                     endDate: { ...prev.endDate, year: e.target.value },
                   }))

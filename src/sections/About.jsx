@@ -1,6 +1,6 @@
 import { useState } from "react";
-import EditSection from "../edit-add-icons/EditSection";
-import EditAboutForm from "../forms/EditAboutForm";
+import EditSection from "../event-listeners/EditSection";
+import EditAboutForm from "../forms/AboutForm";
 
 export default function About({ children }) {
   const [aboutForm, setAboutForm] = useState(false);

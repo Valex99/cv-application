@@ -2,8 +2,8 @@ import { useState } from "react";
 
 import { BsChatLeftDots, BsPhone, BsPinMap } from "react-icons/bs";
 import ProfilePicture from "./ProfilePicture";
-import EditSection from "../edit-add-icons/EditSection";
-import EdtHeaderForm from "../forms/EditHeaderForm";
+import EditSection from "../event-listeners/EditSection";
+import EdtHeaderForm from "../forms/HeaderForm";
 import gustavoPic from "../images/gustavo.jpg";
 
 export default function Header({ children }) {

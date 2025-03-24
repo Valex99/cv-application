@@ -1,21 +1,32 @@
 import { useState } from "react";
 import { BsX } from "react-icons/bs";
-
 import TextInput from "../form-components/TextInput";
+import TextArea from "../form-components/TextAreaInput";
 import SaveButton from "../form-components/SaveButton";
+import { v4 as uuidv4 } from "uuid"; // Import UUID
 
-export default function AddEducationForm({ onClose }) {
-  const schoolDetails = {
-    title: "i",
-    issuer: "i",
-    startDate: { month: "January", year: "2010" },
-    endDate: { month: "August", year: "2015" },
+export default function AddExperienceForm({
+  allExperienceArray,
+  setAllExperienceArray,
+  onClose,
+}) {
+  const jobDetails = {
+    id: uuidv4(),
+    title: "",
+    employeer: "",
+    startDate: { month: "", year: "" },
+    endDate: { month: "", year: "" },
+    responsibilities: "",
   };
 
-  const [school, setSchool] = useState(schoolDetails);
+  //const [experience, setExperience] = useState(workDetails);
+  const [temporary, setTemporary] = useState(jobDetails);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    // Add new experience into experience array
+    setAllExperienceArray((prevExperence) => [...prevExperence, temporary]);
+    console.log(allExperienceArray);
     onClose();
   };
 
@@ -39,13 +50,12 @@ export default function AddEducationForm({ onClose }) {
           </div>
         </div>
         <form onSubmit={handleSubmit}>
-          {/* ADD INPUT FIELDS */}
           <TextInput
             id="title"
-            label="Education Title"
+            label="Job Title"
             value={null}
             onChange={(e) =>
-              setSchool((prev) => ({
+              setTemporary((prev) => ({
                 ...prev,
                 title: e.target.value,
               }))
@@ -53,13 +63,26 @@ export default function AddEducationForm({ onClose }) {
           />
 
           <TextInput
-            id="issuer"
-            label="Issuer"
+            id="employeer"
+            label="Employeer"
             value={null}
             onChange={(e) =>
-              setSchool((prev) => ({
+              setTemporary((prev) => ({
                 ...prev,
-                issuer: e.target.value,
+                employeer: e.target.value,
+              }))
+            }
+          />
+
+          <TextArea
+            id="responsibilities"
+            label="Description"
+            value={null}
+            height="100"
+            onChange={(e) =>
+              setTemporary((prev) => ({
+                ...prev,
+                responsibilities: e.target.value,
               }))
             }
           />
@@ -71,10 +94,10 @@ export default function AddEducationForm({ onClose }) {
               {/* Month Selector */}
               <select
                 className="w-full p-2 border border-gray-300 rounded"
-                value={school.startDate?.month || ""}
+                value={temporary.startDate?.month || ""}
                 onChange={(e) =>
                   // To update Nested Properties (object inside object)
-                  setSchool((prev) => ({
+                  setTemporary((prev) => ({
                     ...prev,
                     startDate: { ...prev.startDate, month: e.target.value },
                   }))
@@ -108,9 +131,9 @@ export default function AddEducationForm({ onClose }) {
                 min="1950"
                 max="2100"
                 step="1"
-                value={school.startDate?.year || ""}
+                value={temporary.startDate?.year || ""}
                 onChange={(e) =>
-                  setSchool((prev) => ({
+                  setTemporary((prev) => ({
                     ...prev,
                     startDate: { ...prev.startDate, year: e.target.value },
                   }))
@@ -125,9 +148,9 @@ export default function AddEducationForm({ onClose }) {
               {/* Month Selector */}
               <select
                 className="w-full p-2 border border-gray-300 rounded"
-                value={school.endDate?.month || ""}
+                value={temporary.endDate?.month || ""}
                 onChange={(e) =>
-                  setSchool((prev) => ({
+                  setTemporary((prev) => ({
                     ...prev,
                     endDate: { ...prev.endDate, month: e.target.value },
                   }))
@@ -161,9 +184,9 @@ export default function AddEducationForm({ onClose }) {
                 min="1950"
                 max="2100"
                 step="1"
-                value={school.endDate?.year || ""}
+                value={temporary.endDate?.year || ""}
                 onChange={(e) =>
-                  setSchool((prev) => ({
+                  setTemporary((prev) => ({
                     ...prev,
                     endDate: { ...prev.endDate, year: e.target.value },
                   }))
