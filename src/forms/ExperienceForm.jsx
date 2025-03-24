@@ -36,24 +36,30 @@ export default function ExperienceForm({
       .map((task) => task.trim()) // Trim extra spaces
       .filter((task) => task !== ""); // Remove empty tasks
 
-
-      // Now this holds all values that temporaryValue state held (Object)
-      // WITH A DIFFERENCE OF tasks -> tasks are updated therefore
+    // Now this holds all values that temporaryValue state held (Object)
+    // WITH A DIFFERENCE OF tasks -> tasks are updated therefore
     const updatedTasksObject = {
-        ...temporaryValue,
-        tasks: tasksToArray
-    }
-
-
+      ...temporaryValue,
+      tasks: tasksToArray,
+    };
 
     // Check if user is editing existing experience or addig new
     // if editing expereince it truthy, user is editing an existing experience
     if (editingExperience) {
       // Find experience that user edited
-      const ExpToUpdate = allWorkExperience.map((exp) =>
+      // allWorkExperience.map(...) -> creates a new array based on alWorkExperience
+      // but it doesnt modify the original array so the updatedExperience holds that new array
+      const updatedExperience = allWorkExperience.map((exp) =>
         exp.id === temporaryValue.id ? updatedTasksObject : exp
       );
+
+      // Update the state with the modified array
+      // const updatedExperience now holds a new array of work experiences,
+      // where one specific experience (the one you are editing) is updated
+      // with the new data
+      setAllWorkExperience(updatedExperience);
     } else {
+      // If not, add new Work experience into an array
       setAllWorkExperience([...allWorkExperience, updatedTasksObject]);
     }
     // Close the form
