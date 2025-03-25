@@ -66,6 +66,19 @@ export default function ExperienceForm({
     onClose();
   };
 
+  const handleDelete = (id) => {
+    // When the user clicks delete (since delete button is only shown when user is editing an existing prject
+    // we dont need to check for that agian)
+
+    // 1. The work experience that user is editing should be removed from the all work exp array
+    setAllWorkExperience((prevExperiences) =>
+      prevExperiences.filter((experience) => experience.id !== id)
+    );
+
+    // 2. Form should close
+    onClose();
+  };
+
   return (
     <div
       className="fixed inset-0 flex justify-center items-center z-50 bg-gray-700/40 backdrop-blur-sm z-10"
@@ -241,6 +254,9 @@ export default function ExperienceForm({
             <button
               type="button"
               className="w-[100%] cursor-pointer text-[#991B1B] bg-white mt-3 hover:bg-gray-200 active:scale-95 transition-all px-4 py-2 rounded-md"
+              // Since handleDelete take id as an argument, on click of delete button a function
+              // should be called which passes current editing experience id as an argument
+              onClick={() => handleDelete(temporaryValue.id)}
             >
               Delete
             </button>

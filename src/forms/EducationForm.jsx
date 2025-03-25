@@ -39,6 +39,13 @@ export default function EducationForm({
     onClose();
   };
 
+  const handleDelete = (id) => {
+    setAllSchoolEducation((prevEducation) =>
+      prevEducation.filter((education) => education.id !== id)
+    );
+    onClose();
+  };
+
   return (
     <div
       className="fixed inset-0 flex justify-center items-center z-50 bg-gray-700/40 backdrop-blur-sm z-10"
@@ -203,6 +210,7 @@ export default function EducationForm({
             <button
               type="button"
               className="w-[100%] cursor-pointer text-[#991B1B] bg-white mt-3 hover:bg-gray-200 active:scale-95 transition-all px-4 py-2 rounded-md"
+              onClick={() => handleDelete(temporaryValue.id)}
             >
               Delete
             </button>
