@@ -47,7 +47,7 @@ export default function SchoolEducation() {
               {education.title}
 
               <div
-                className="absolute -top-1 right-0 opacity-0 group-hover:opacity-100 h-[45px] w-[45px] rounded-full flex items-center justify-center 
+                className="cursor-pointer absolute -top-1 right-0 opacity-0 group-hover:opacity-100 h-[45px] w-[45px] rounded-full flex items-center justify-center 
                   transition-all duration-300 active:scale-95 transition-shadow hover:shadow-[0_3px_4px_#00000024,0_3px_3px_-2px_#0000001f,0_1px_8px_#0003] p-2"
                 onClick={() => handleEditEducation(education)}
               >

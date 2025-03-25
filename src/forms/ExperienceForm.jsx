@@ -29,10 +29,6 @@ export default function ExperienceForm({
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // ADDED //
-    // Convert tasks string into an array before saving
-    console.log(typeof temporaryValue.tasks, temporaryValue.tasks);
-
     const tasksToArray = temporaryValue.tasks
       .split(",")
       .map((task) => task.trim()) // Trim extra spaces

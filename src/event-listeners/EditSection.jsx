@@ -7,7 +7,7 @@ export default function EditSection({ top, right, onClick }) {
   }
   return (
     <div
-      className={`absolute ${top} ${right} opacity-0 group-hover:opacity-100 h-[45px] w-[45px] bg-[#0D766E] hover:bg-[#0A5F5A] active:bg-[#094F4C] rounded-full flex items-center justify-center active:scale-95
+      className={`absolute ${top} ${right} cursor-pointer opacity-0 group-hover:opacity-100 h-[45px] w-[45px] bg-[#0D766E] hover:bg-[#0A5F5A] active:bg-[#094F4C] rounded-full flex items-center justify-center active:scale-95
                   transition-all duration-300`}
       style={{
         boxShadow:
