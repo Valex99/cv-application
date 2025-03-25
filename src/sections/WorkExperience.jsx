@@ -30,7 +30,15 @@ export default function WorkExperience() {
 
   // Function to edit an existing work experience
   const handleEditExperience = (experience) => {
-    setEditingExperience(experience); // Pass on an existing object
+    // Ensure tasks is always a string before passin an object to be edited inside a state.
+    const normalizedExperience = {
+      ...experience,
+      tasks: Array.isArray(experience.tasks)
+        ? experience.tasks.join(", ")
+        : experience.tasks || "",
+    };
+
+    setEditingExperience(normalizedExperience); // Pass on an existing object
     setIsFormOpen(true);
   };
 
@@ -52,8 +60,7 @@ export default function WorkExperience() {
               {experience.title}
               <div
                 className="absolute -top-1 right-0 opacity-0 group-hover:opacity-100 h-[45px] w-[45px] rounded-full flex items-center justify-center 
-                  shadow-[0px_8px_24px_4px_rgba(0,0,0,0.6)]  
-                  transition-all duration-300"
+                  transition-all duration-300 active:scale-95 transition-shadow hover:shadow-[0_3px_4px_#00000024,0_3px_3px_-2px_#0000001f,0_1px_8px_#0003] p-2"
                 onClick={() => handleEditExperience(experience)}
               >
                 <BsPen className="text-black text-lg cursor-pointer" />

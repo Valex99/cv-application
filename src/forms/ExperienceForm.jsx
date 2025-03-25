@@ -31,6 +31,8 @@ export default function ExperienceForm({
 
     // ADDED //
     // Convert tasks string into an array before saving
+    console.log(typeof temporaryValue.tasks, temporaryValue.tasks);
+
     const tasksToArray = temporaryValue.tasks
       .split(",")
       .map((task) => task.trim()) // Trim extra spaces
@@ -127,7 +129,7 @@ export default function ExperienceForm({
 
           <TextArea
             id="responsibilities"
-            label="Description"
+            label="Tasks - separated by commas (,)"
             value={temporaryValue.tasks}
             height="100"
             onChange={(e) =>
