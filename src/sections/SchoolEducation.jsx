@@ -1,19 +1,82 @@
+import { useState } from "react";
 import AddSection from "../event-listeners/AddSection";
-import AddEducationForm from "../forms/EducationForm";
+import { BsPen } from "react-icons/bs";
+import EducationForm from "../forms/EducationForm";
+import { v4 as uuidv4 } from "uuid";
 
-export default function SchoolEducation({ children }) {
+export default function SchoolEducation() {
+  const [allSchoolEducation, setAllSchoolEducation] = useState([
+    // Default value when page is first rendered
+    {
+      id: uuidv4(),
+      title: "Computer Science and Engineering",
+      school: "Massachusetts Institute of Technology",
+      startDate: { month: "October", year: "2017" },
+      endDate: { month: "July", year: "2020" },
+    },
+  ]);
+
+  const [editingEducation, setEditingEducation] = useState(null);
+  const [isFormOpen, setIsFormOpen] = useState(false);
+
+  const handleAddSchool = () => {
+    setEditingEducation(null);
+    setIsFormOpen(true);
+  };
+
+  const handleEditEducation = (education) => {
+    setEditingEducation(education);
+    setIsFormOpen(true);
+  };
+
+  const handleCloseForm = () => {
+    setIsFormOpen(false);
+    setEditingEducation(null);
+  };
+
   return (
     <div className="group text-black p-5 relative">
       <h2 className="text-[32px] mb-[20px] leading-tight">School Education</h2>
-      <h1 className="text-[19px] font-bold leading-tight">
-        Computer Science and Engineering
-      </h1>
-      <p className="text-[16px]">Massachusetts Institute of Technology</p>
-      <p className="text-[12px] text-[#696161]">Feb 2020 - Mar 2023</p>
-      <AddSection top="top-5" right="right-5" />
-      {children}
+      <AddSection top="top-3" right="right-5" onClick={handleAddSchool} />
 
-      {/* {educationForm && <AddEducationForm onClose={toggleEducationForm} />} */}
+      {/* Render School Education List */}
+      {allSchoolEducation.length > 0 ? (
+        allSchoolEducation.map((education) => (
+          <div key={education.id} className="mt-6">
+            <h3 className="relative text-[19px] font-bold leading-tight">
+              {education.title}
+
+              <div
+                className="absolute -top-1 right-0 opacity-0 group-hover:opacity-100 h-[45px] w-[45px] rounded-full flex items-center justify-center 
+                  shadow-[0px_8px_24px_4px_rgba(0,0,0,0.6)]  
+                  transition-all duration-300"
+                onClick={() => handleEditEducation(education)}
+              >
+                <BsPen className="text-black text-lg cursor-pointer" />
+              </div>
+            </h3>
+            <p className="text-[16px]">{education.school}</p>
+            <p className="text-[12px] text-[#696161]">
+              {education.startDate.month} {education.startDate.year} -{" "}
+              {education.endDate.month && education.endDate.year
+                ? `${" " + education.endDate.month} ${education.endDate.year}`
+                : " Present"}
+            </p>
+          </div>
+        ))
+      ) : (
+        <p className="text-gray-500">No school education added yet.</p>
+      )}
+
+      {/* leverage isFormOpen to call EducationForm Component */}
+      {isFormOpen && (
+        <EducationForm
+          onClose={handleCloseForm}
+          allSchoolEducation={allSchoolEducation}
+          setAllSchoolEducation={setAllSchoolEducation}
+          editingEducation={editingEducation}
+        />
+      )}
     </div>
   );
 }

@@ -103,7 +103,7 @@ export default function ExperienceForm({
           <TextInput
             id="employer"
             label="Employer"
-            value={temporaryValue.employeer}
+            value={temporaryValue.employer}
             onChange={(e) =>
               setTemporaryValue((prev) => ({
                 ...prev,
@@ -235,6 +235,16 @@ export default function ExperienceForm({
 
           {/* Buttons */}
           <SaveButton />
+
+          {/* Delete button should only appear if the user is editing existing experience */}
+          {editingExperience && (
+            <button
+              type="button"
+              className="w-[100%] cursor-pointer text-[#991B1B] bg-white mt-3 hover:bg-gray-200 active:scale-95 transition-all px-4 py-2 rounded-md"
+            >
+              Delete
+            </button>
+          )}
         </form>
       </div>
     </div>
