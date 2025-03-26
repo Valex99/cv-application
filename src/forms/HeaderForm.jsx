@@ -75,7 +75,8 @@ export default function EditHeaderForm({ userInfo, setUserInfo, onClose }) {
       onClick={onClose}
     >
       <div
-        className="bg-white p-8 rounded-lg w-[400px]"
+        // className="bg-white p-8 rounded-lg w-[400px]"
+        className="bg-white p-8 rounded-lg max-w-[400px] w-[400px] m-[20px]"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex justify-between items-center mb-4">

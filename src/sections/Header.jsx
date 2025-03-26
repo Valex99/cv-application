@@ -33,7 +33,7 @@ export default function Header({ children }) {
   };
 
   return (
-    <div className="group relative flex items-center justify-end p-5 pt-7 bg-[#0D766E]">
+    <div className="group header-container relative flex items-center justify-end p-5 pt-7 bg-[#0D766E]">
       {/* Profile Picture on the left side */}
       <ProfilePicture photoSrc={userInfo.photo} />
 
@@ -41,24 +41,26 @@ export default function Header({ children }) {
       <EditSection top="top-4" right="right-5" onClick={toggleForm} />
 
       {/* Text content aligned to the right */}
-      <div className="text-left text-white mr-14">
-        <h1 className="text-[24px] font-bold leading-tight">{userInfo.name}</h1>
+      <div className="my-text-align text-white mr-14">
+        <h1 className="name text-[24px] font-bold leading-tight">{userInfo.name}</h1>
         <h2 className="text-[16px] font-medium ">{userInfo.title}</h2>
 
-        <p className="text-sm mt-[15px] mb-[15px]">
-          <BsChatLeftDots className="inline-block mr-2 text-xl" />
-          {userInfo.email}
-        </p>
+        <div className="details-wrapper">
+          <p className="text-sm mt-[15px] mb-[15px]">
+            <BsChatLeftDots className="inline-block mr-2 text-xl" />
+            {userInfo.email}
+          </p>
 
-        <p className="text-sm mt-[15px] mb-[15px]">
-          <BsPhone className="inline-block mr-2 text-xl" />
-          {userInfo.phone}
-        </p>
+          <p className="phone text-sm mt-[15px] mb-[15px]">
+            <BsPhone className="inline-block mr-2 text-xl" />
+            {userInfo.phone}
+          </p>
 
-        <p className="text-sm mt-[15px] mb-[15px]">
-          <BsPinMap className="inline-block mr-2 text-xl" />
-          {userInfo.location}
-        </p>
+          <p className="text-sm mt-[15px] mb-[15px]">
+            <BsPinMap className="inline-block mr-2 text-xl" />
+            {userInfo.location}
+          </p>
+        </div>
       </div>
       {children}
 

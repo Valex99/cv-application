@@ -5,7 +5,7 @@ import SchoolEducation from "./sections/SchoolEducation";
 
 const EntryPoint = ({ children }) => {
   return (
-    <div className="w-[800px] bg-white rounded-lg shadow-lg overflow-hidden relative">
+    <div className="container max-w-[800px] bg-white rounded-lg shadow-lg overflow-hidden relative">
       <Header />
       <About />
       <WorkExperience />
