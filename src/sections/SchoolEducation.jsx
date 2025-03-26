@@ -3,9 +3,11 @@ import AddSection from "../event-listeners/AddSection";
 import { BsPen } from "react-icons/bs";
 import EducationForm from "../forms/EducationForm";
 import { v4 as uuidv4 } from "uuid";
+import useLocalStorage from "../hooks/useLocalStorage";
+
 
 export default function SchoolEducation() {
-  const [allSchoolEducation, setAllSchoolEducation] = useState([
+  const [allSchoolEducation, setAllSchoolEducation] = useLocalStorage("schoolEducation",[
     // Default value when page is first rendered
     {
       id: uuidv4(),

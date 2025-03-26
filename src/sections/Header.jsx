@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+import useLocalStorage from "../hooks/useLocalStorage";
+
 import { BsChatLeftDots, BsPhone, BsPinMap } from "react-icons/bs";
 import ProfilePicture from "./ProfilePicture";
 import EditSection from "../event-listeners/EditSection";
@@ -17,7 +19,7 @@ export default function Header({ children }) {
   }
 
   // State for user information - source for info
-  const [userInfo, setUserInfo] = useState({
+  const [userInfo, setUserInfo] = useLocalStorage("userInfo", {
     name: "Matej Valencic",
     title: "Front-End Engineer",
     email: "mval.fx@gmail.com",

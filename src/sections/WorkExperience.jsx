@@ -1,24 +1,29 @@
 import { useState } from "react";
+import useLocalStorage from "../hooks/useLocalStorage";
 import AddSection from "../event-listeners/AddSection";
 import { BsPen } from "react-icons/bs";
 import ExperienceForm from "../forms/ExperienceForm";
 import { v4 as uuidv4 } from "uuid";
 
 export default function WorkExperience() {
-  const [allWorkExperience, setAllWorkExperience] = useState([
-    {
-      id: uuidv4(),
-      title: "Front-End Engineer",
-      employer: "Google",
-      startDate: { month: "August", year: "2022" },
-      endDate: { month: "", year: "" },
-      tasks: [
-        "Interactivity Implementation",
-        "Web and Mobile UI/UX Design",
-        "Team Collaboration and Organization",
-      ],
-    },
-  ]);
+  // Persist all work experience in local storage
+  const [allWorkExperience, setAllWorkExperience] = useLocalStorage(
+    "workExperience",
+    [
+      {
+        id: uuidv4(),
+        title: "Front-End Engineer",
+        employer: "Google",
+        startDate: { month: "August", year: "2022" },
+        endDate: { month: "", year: "" },
+        tasks: [
+          "Interactivity Implementation",
+          "Web and Mobile UI/UX Design",
+          "Team Collaboration and Organization",
+        ],
+      },
+    ]
+  );
   const [editingExperience, setEditingExperience] = useState(null);
   const [isFormOpen, setIsFormOpen] = useState(false);
 

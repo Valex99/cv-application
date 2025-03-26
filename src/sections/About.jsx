@@ -1,11 +1,15 @@
-import { useState } from "react";
+//import { useState } from "react";
 import EditSection from "../event-listeners/EditSection";
 import EditAboutForm from "../forms/AboutForm";
+import useLocalStorage from "../hooks/useLocalStorage";
 
 export default function About({ children }) {
-  const [aboutForm, setAboutForm] = useState(false);
+  // Toggle form visibility
+  const [aboutForm, setAboutForm] = useLocalStorage("aboutForm", false);
 
-  const [aboutDescription, setAboutDescription] = useState(
+  // Persist about description in local storage
+  const [aboutDescription, setAboutDescription] = useLocalStorage(
+    "aboutDescription",
     "I'm a passionate front-end developer with a knack for bringing beautiful and functional web experiences to life. Combining my technical expertise with an eye for design, I weave code into interactive tapestries that captivate users and drive results."
   );
 
