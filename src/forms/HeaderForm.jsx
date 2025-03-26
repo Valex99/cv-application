@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { BsX } from "react-icons/bs";
-
 import TextInput from "../form-components/TextInput";
 import SaveButton from "../form-components/SaveButton";
 
@@ -8,14 +7,32 @@ export default function EditHeaderForm({ userInfo, setUserInfo, onClose }) {
   // Temporary state - updated onChange
   const [formValues, setFormValues] = useState(userInfo);
   const [imagePreview, setImagePreview] = useState(userInfo.photo || ""); // To show the preview of the selected image
+  const [errors, setErrors] = useState({}); // Track validation errors
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    // Validate fields
+    const newErrors = {};
+    Object.keys(formValues).forEach((key) => {
+      if (formValues[key].trim() === "") {
+        newErrors[key] = `${
+          key.charAt(0).toUpperCase() + key.slice(1)
+        } is required`;
+      }
+    });
+
+    // If there are errors, don't proceed
+    if (Object.keys(newErrors).length > 0) {
+      //console.log("Errors:", newErrors);
+      setErrors(newErrors);
+      return;
+    }
+
     setUserInfo(formValues);
     onClose(); // Close the form after submitting
   };
 
-  //
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -30,7 +47,22 @@ export default function EditHeaderForm({ userInfo, setUserInfo, onClose }) {
       reader.readAsDataURL(file);
     }
   };
-  //
+
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+    setFormValues((prev) => ({
+      ...prev,
+      [id]: value,
+    }));
+
+    // Clear error message for this field when the user starts typing
+    if (errors[id]) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        [id]: "",
+      }));
+    }
+  };
 
   // Rather than on change, the data should change on submit
   // On change, only input window should update
@@ -61,61 +93,45 @@ export default function EditHeaderForm({ userInfo, setUserInfo, onClose }) {
           <TextInput
             id="name"
             label="Name"
+            type="text"
             value={formValues.name}
-            onChange={(e) =>
-              setFormValues((prev) => ({
-                ...prev,
-                name: e.target.value,
-              }))
-            }
+            onChange={handleChange}
+            error={errors.name}
           />
 
           <TextInput
             id="title"
             label="Job Title"
+            type="text"
             value={formValues.title}
-            onChange={(e) =>
-              setFormValues((prev) => ({
-                ...prev,
-                title: e.target.value,
-              }))
-            }
+            onChange={handleChange}
+            error={errors.title}
           />
 
           <TextInput
             id="email"
             label="Email"
+            type="email"
             value={formValues.email}
-            onChange={(e) =>
-              setFormValues((prev) => ({
-                ...prev,
-                email: e.target.value,
-              }))
-            }
+            onChange={handleChange}
+            error={errors.email}
           />
 
           <TextInput
             id="phone"
             label="Phone"
+            type="tel"
             value={formValues.phone}
-            onChange={(e) =>
-              setFormValues((prev) => ({
-                ...prev,
-                phone: e.target.value,
-              }))
-            }
+            onChange={handleChange}
+            error={errors.phone}
           />
 
           <TextInput
             id="location"
             label="Location"
             value={formValues.location}
-            onChange={(e) =>
-              setFormValues((prev) => ({
-                ...prev,
-                location: e.target.value,
-              }))
-            }
+            onChange={handleChange}
+            error={errors.location}
           />
 
           {/* Image Upload Section */}

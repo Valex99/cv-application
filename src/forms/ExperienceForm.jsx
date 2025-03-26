@@ -14,7 +14,7 @@ export default function ExperienceForm({
   editingExperience,
 }) {
   const [temporaryValue, setTemporaryValue] = useState(
-    // "If exitinfExperience is true (if it has a true value) use it as a state otherwise use empty object"
+    // "If existingExperience is true (if it has a true value) use it as a state otherwise use empty object"
     editingExperience || {
       id: uuidv4(),
       title: "",
@@ -25,9 +25,47 @@ export default function ExperienceForm({
     }
   );
 
+  // Error handling
+  const [errors, setErrors] = useState({});
+
   // No need for handleChange function because i am using setState function on form
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    // Validate fields
+    const newErrors = {};
+    Object.keys(temporaryValue).forEach((key) => {
+      // Validate startDate fields (month and year)
+      if (key === "startDate") {
+        if (
+          !temporaryValue.startDate.month.trim() ||
+          !temporaryValue.startDate.year.trim()
+        ) {
+          newErrors.startDate = "Start date (month and year) is required";
+        }
+      }
+
+      // Skip endDate validation (can be empty)
+      if (key === "endDate") {
+        return;
+      }
+
+      // Only apply trim to strings
+      if (
+        typeof temporaryValue[key] === "string" &&
+        temporaryValue[key].trim() === ""
+      ) {
+        newErrors[key] = `${
+          key.charAt(0).toUpperCase() + key.slice(1)
+        } is required`;
+      }
+    });
+
+    // If there are errors, dont proceed
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
 
     const tasksToArray = temporaryValue.tasks
       .split(",")
@@ -77,6 +115,22 @@ export default function ExperienceForm({
     onClose();
   };
 
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+    setTemporaryValue((prev) => ({
+      ...prev,
+      [id]: value,
+    }));
+
+    // Clear error message for this field when the user starts typing
+    if (errors[id]) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        [id]: "",
+      }));
+    }
+  };
+
   return (
     <div
       className="fixed inset-0 flex justify-center items-center z-50 bg-gray-700/40 backdrop-blur-sm z-10"
@@ -102,38 +156,28 @@ export default function ExperienceForm({
           <TextInput
             id="title"
             label="Job Title"
+            type="text"
             value={temporaryValue.title}
-            onChange={(e) =>
-              setTemporaryValue((prev) => ({
-                ...prev,
-                title: e.target.value,
-              }))
-            }
+            onChange={handleChange}
+            error={errors.title}
           />
 
           <TextInput
             id="employer"
             label="Employer"
+            type="text"
             value={temporaryValue.employer}
-            onChange={(e) =>
-              setTemporaryValue((prev) => ({
-                ...prev,
-                employer: e.target.value,
-              }))
-            }
+            onChange={handleChange}
+            error={errors.employer}
           />
 
           <TextArea
-            id="responsibilities"
+            id="tasks"
             label="Tasks - separated by commas (,)"
             value={temporaryValue.tasks}
             height="100"
-            onChange={(e) =>
-              setTemporaryValue((prev) => ({
-                ...prev,
-                tasks: e.target.value,
-              }))
-            }
+            onChange={handleChange}
+            error={errors.tasks}
           />
 
           {/* Start Date */}
@@ -189,6 +233,10 @@ export default function ExperienceForm({
                 }
               />
             </div>
+            {/* Error Message for Start Date */}
+            {errors.startDate && (
+              <p className="text-red-500 text-sm mt-1">{errors.startDate}</p>
+            )}
           </div>
 
           <div className="mb-4">

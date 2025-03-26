@@ -24,18 +24,68 @@ export default function EducationForm({
     }
   );
 
+  // Error handling
+  const [errors, setErrors] = useState({});
+
+  // No need for handleChange function because i am using setState function on form
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // On submit, check if user was adding new education or editing an existing one
+    // Validate fields
+    const newErrors = {};
+    Object.keys(temporaryValue).forEach((key) => {
+      // Validate startDate fields (month and year)
+      if (key === "startDate") {
+        if (
+          !temporaryValue.startDate.month.trim() ||
+          !temporaryValue.startDate.year.trim()
+        ) {
+          newErrors.startDate = "Start date (month and year) is required";
+        }
+      }
+
+      // Skip endDate validation (can be empty)
+      if (key === "endDate") {
+        return;
+      }
+
+      // Only apply trim to strings
+      if (
+        typeof temporaryValue[key] === "string" &&
+        temporaryValue[key].trim() === ""
+      ) {
+        newErrors[key] = `${
+          key.charAt(0).toUpperCase() + key.slice(1)
+        } is required`;
+      }
+    });
+
+    // If there are errors, dont proceed
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+
+    // Check if user is editing existing experience or addig new
+    // if editing expereince it truthy, user is editing an existing experience
     if (editingEducation) {
-      const updatedEducation = allSchoolEducation.map((education) =>
-        education.id === temporaryValue.id ? temporaryValue : education
+      // Find experience that user edited
+      // allWorkExperience.map(...) -> creates a new array based on alWorkExperience
+      // but it doesnt modify the original array so the updatedExperience holds that new array
+      const updatedExperience = allSchoolEducation.map((exp) =>
+        exp.id === temporaryValue.id ? temporaryValue : exp
       );
-      setAllSchoolEducation(updatedEducation);
+
+      // Update the state with the modified array
+      // const updatedExperience now holds a new array of work experiences,
+      // where one specific experience (the one you are editing) is updated
+      // with the new data
+      setAllSchoolEducation(updatedExperience);
     } else {
+      // If not, add new Work experience into an array
       setAllSchoolEducation([...allSchoolEducation, temporaryValue]);
     }
+    // Close the form
     onClose();
   };
 
@@ -44,6 +94,22 @@ export default function EducationForm({
       prevEducation.filter((education) => education.id !== id)
     );
     onClose();
+  };
+
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+    setTemporaryValue((prev) => ({
+      ...prev,
+      [id]: value,
+    }));
+
+    // Clear error message for this field when the user starts typing
+    if (errors[id]) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        [id]: "",
+      }));
+    }
   };
 
   return (
@@ -73,25 +139,31 @@ export default function EducationForm({
           <TextInput
             id="title"
             label="Title"
+            type="text"
             value={temporaryValue.title}
-            onChange={(e) =>
-              setTemporaryValue((prev) => ({
-                ...prev,
-                title: e.target.value,
-              }))
-            }
+            onChange={handleChange}
+            // onChange={(e) =>
+            //   setTemporaryValue((prev) => ({
+            //     ...prev,
+            //     title: e.target.value,
+            //   }))
+            // }
+            error={errors.title}
           />
 
           <TextInput
             id="school"
             label="School"
+            type="text"
             value={temporaryValue.school}
-            onChange={(e) =>
-              setTemporaryValue((prev) => ({
-                ...prev,
-                school: e.target.value,
-              }))
-            }
+            onChange={handleChange}
+            // onChange={(e) =>
+            //   setTemporaryValue((prev) => ({
+            //     ...prev,
+            //     school: e.target.value,
+            //   }))
+            // }
+            error={errors.school}
           />
 
           {/* Start Date */}
@@ -147,6 +219,10 @@ export default function EducationForm({
                 }
               />
             </div>
+            {/* Error Message for Start Date */}
+            {errors.startDate && (
+              <p className="text-red-500 text-sm mt-1">{errors.startDate}</p>
+            )}
           </div>
 
           <div className="mb-4">

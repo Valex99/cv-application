@@ -10,11 +10,43 @@ export default function EditAboutForm({
 }) {
   // Temporary state
   const [textareaValue, setTextareaValue] = useState(aboutDescription);
+  const [errors, setErrors] = useState({});
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    // Validate textarea (checking if it's empty or too short)
+    const newErrors = {};
+
+    if (textareaValue.trim() === "") {
+      newErrors.description = "Description is required";
+    }
+
+    // Special validation for About section (must be at least 5 chars)
+    if (textareaValue.trim().length < 5) {
+      newErrors.description = "Bio must be at least 5 characters";
+    }
+
+    // If there are errors, don't proceed
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+
+    // If no errors, proceed
     setAboutDescription(textareaValue);
     onClose();
+  };
+
+  const handleChange = (e) => {
+    const { value } = e.target;
+    setTextareaValue(value);
+
+    // Clear error message
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      description: "", // Clear the specific error for the description
+    }));
   };
 
   return (
@@ -44,9 +76,9 @@ export default function EditAboutForm({
             label="Description"
             value={textareaValue}
             height="300"
-            onChange={(e) => setTextareaValue(e.target.value)}
+            onChange={handleChange}
+            error={errors.description}
           />
-
           <SaveButton />
         </form>
       </div>
